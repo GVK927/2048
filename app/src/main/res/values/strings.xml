@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">2048</string>
+    <string name="_2048">2048</string>
+    <string name="new_game">New game</string>
+    <string name="_continue">Continue</string>
+    <string name="leaderboard">LeaderBoard</string>
+    <string name="top_players">Top players</string>
 </resources>
