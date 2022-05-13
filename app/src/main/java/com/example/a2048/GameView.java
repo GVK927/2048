@@ -1,6 +1,7 @@
 package com.example.a2048;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.drawable.VectorDrawable;
 import android.util.AttributeSet;
@@ -8,12 +9,11 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
-
-import androidx.core.view.GestureDetectorCompat;
-
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.HashMap;
 
+import Game.Direction;
 import Game.GameBoard;
 
 class GameView extends View {
@@ -22,36 +22,35 @@ class GameView extends View {
     private int BOARD_SIZE;
 
     private GestureDetector gesture_detector;
-
     private GameBoard board;
     private final VectorDrawable boardImg;
-    private final HashMap<Integer, VectorDrawable> cellImgs = new HashMap<>();
+    private final HashMap<Integer, VectorDrawable> cellImages = new HashMap<>();
 
     {
-        cellImgs.put(2, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell2));
-        cellImgs.put(4, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell4));
-        cellImgs.put(8, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell8));
-        cellImgs.put(16, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell16));
-        cellImgs.put(32, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell32));
-        cellImgs.put(64, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell64));
-        cellImgs.put(128, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell128));
-        cellImgs.put(256, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell256));
-        cellImgs.put(512, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell512));
-        cellImgs.put(1024, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell1024));
-        cellImgs.put(2048, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell2048));
-        cellImgs.put(4096, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell4096));
-        cellImgs.put(8192, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell8192));
-        cellImgs.put(16384, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell16384));
-        cellImgs.put(32768, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell32768));
-        cellImgs.put(65536, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell65536));
-        cellImgs.put(131072, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell131072));
+        cellImages.put(2, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell2));
+        cellImages.put(4, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell4));
+        cellImages.put(8, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell8));
+        cellImages.put(16, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell16));
+        cellImages.put(32, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell32));
+        cellImages.put(64, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell64));
+        cellImages.put(128, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell128));
+        cellImages.put(256, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell256));
+        cellImages.put(512, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell512));
+        cellImages.put(1024, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell1024));
+        cellImages.put(2048, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell2048));
+        cellImages.put(4096, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell4096));
+        cellImages.put(8192, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell8192));
+        cellImages.put(16384, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell16384));
+        cellImages.put(32768, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell32768));
+        cellImages.put(65536, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell65536));
+        cellImages.put(131072, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell131072));
 
         this.boardImg = (VectorDrawable) getResources().getDrawable(R.drawable.ic_gameboard);
     }
 
     public GameView(Context context, AttributeSet set) {
         super(context, set);
-        CELL_SIZE = cellImgs.get(2).getIntrinsicWidth();
+        CELL_SIZE = cellImages.get(2).getIntrinsicWidth();
         BOARD_SIZE = boardImg.getIntrinsicWidth();
         OFFSET = (int)(((double)(BOARD_SIZE - CELL_SIZE * 4)) / 5);
         gesture_detector = new GestureDetector(null, new SwipeDetector());
@@ -61,23 +60,17 @@ class GameView extends View {
     }
 
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        this.gesture_detector.onTouchEvent(event);
-        return super.onTouchEvent(event);
-    }
-
-    @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         setBackground(boardImg);
         canvas.translate(resizeCords(OFFSET), resizeCords(OFFSET));
         canvas.save();
-        for(int i = 0; i < board.getBoard().length; i++){
+        for (int i = 0; i < board.getBoard().length; i++) {
             canvas.translate(0, resizeCords((OFFSET + CELL_SIZE) * i));
-            for(int j = 0; j < board.getBoard().length; j++){
-                if(board.getBoard()[i][j] != 0) {
-                    cellImgs.get(board.getBoard()[i][j]).setBounds(0, 0, resizeCords(CELL_SIZE), resizeCords(CELL_SIZE));
-                    cellImgs.get(board.getBoard()[i][j]).draw(canvas);
+            for (int j = 0; j < board.getBoard().length; j++) {
+                if (board.getBoard()[i][j] != 0) {
+                    cellImages.get(board.getBoard()[i][j]).setBounds(0, 0, resizeCords(CELL_SIZE), resizeCords(CELL_SIZE));
+                    cellImages.get(board.getBoard()[i][j]).draw(canvas);
                 }
                 canvas.translate(resizeCords(OFFSET + CELL_SIZE), 0);
             }
@@ -92,25 +85,24 @@ class GameView extends View {
         return (int)(input * ((double)getWidth() / boardImg.getIntrinsicWidth()));
     }
 
-    public GameBoard getBoard() {
-        return board;
-    }
     public void setBoard(GameBoard board) {
         this.board = board;
     }
 
-    class SwipeDetector extends GestureDetector.SimpleOnGestureListener {
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        return this.gesture_detector.onTouchEvent(event);
+    }
+    private class SwipeDetector extends GestureDetector.SimpleOnGestureListener {
         private static final int SWIPE_THRESHOLD = 100;
         private static final int SWIPE_VELOCITY_THRESHOLD = 100;
 
         @Override
         public boolean onDown(MotionEvent e) {
-            System.out.println("DOWN");
             return true;
         }
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-            System.out.println("FLING");
             boolean result = false;
             try {
                 float diffY = e2.getY() - e1.getY();
@@ -141,16 +133,20 @@ class GameView extends View {
         }
 
         public void onSwipeRight() {
-            System.out.println("RIGHT");
+            board.move(Direction.RIGHT);
+            ((GameActivity)getContext()).update();
         }
         public void onSwipeLeft() {
-            System.out.println("LEFT");
+            board.move(Direction.LEFT);
+            ((GameActivity)getContext()).update();
         }
         public void onSwipeTop() {
-            System.out.println("TOP");
+            board.move(Direction.UP);
+            ((GameActivity)getContext()).update();
         }
         public void onSwipeBottom() {
-            System.out.println("BOTTOM");
+            board.move(Direction.DOWN);
+            ((GameActivity)getContext()).update();
         }
     }
 }

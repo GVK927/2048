@@ -1,26 +1,23 @@
 package Game;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Random;
 
-public class GameBoard {
+public class GameBoard implements Serializable {
+    private static final long serialVersionUID = 1234567890;
+
     private static final int SIZE = 4;
 
-    private int[][] board;
+    private final int[][] board;
     private int points;
 
-    private Random random;
+    private final Random random;
 
     public GameBoard (){
         this.random = new Random();
         this.board = makeBoard();
         this.points = 0;
-    }
-    public int[][] getBoard () {
-        return board;
-    }
-    public int getPoints () {
-        return points;
     }
     public boolean move(Direction direction){
         boolean reverse_order = direction == Direction.DOWN || direction == Direction.RIGHT;
@@ -43,30 +40,14 @@ public class GameBoard {
         return false;
     }
 
-    private boolean updateBoard(){
-        if(!isLose())
-        for(;;){
-            int x = random.nextInt(SIZE);
-            int y = random.nextInt(SIZE);
-            if(board[x][y] == 0) {
-                board[x][y] = random.nextInt(10) < 9 ? 2 : 4;
-                break;
-            }
-        }
-        return isLose();
-    }
-    private boolean isLose(){
-        for(int i = 0; i < SIZE; i++){
-            for(int j = 1; j < SIZE; j++){
-                if(board[i][j] == board[i][j - 1] || board[j][i] == board[j - 1][i]) return false;
-            }
-        }
+    private int[][] makeBoard(){
+        int[][] board = new int[SIZE][SIZE];
         for(int[] i:board){
-            for(int j:i){
-                if(j == 0) return false;
-            }
+            Arrays.fill(i, 0);
         }
-        return true;
+        //90% - начинаем с двойки, 10% - с четверки
+        board[random.nextInt(SIZE)][random.nextInt(SIZE)] = random.nextInt(10) < 9 ? 2 : 4;
+        return board;
     }
     private int[] shift(int[] in, boolean reverse_order){
         int[] out = new int[SIZE];
@@ -102,6 +83,32 @@ public class GameBoard {
         }
         return out;
     }
+    private boolean updateBoard(){
+        if(!isLose())
+        for(;;){
+            int x = random.nextInt(SIZE);
+            int y = random.nextInt(SIZE);
+            if(board[x][y] == 0) {
+                board[x][y] = random.nextInt(10) < 9 ? 2 : 4;
+                break;
+            }
+        }
+        return isLose();
+    }
+    private boolean isLose(){
+        for(int i = 0; i < SIZE; i++){
+            for(int j = 1; j < SIZE; j++){
+                if(board[i][j] == board[i][j - 1] || board[j][i] == board[j - 1][i]) return false;
+            }
+        }
+        for(int[] i:board){
+            for(int j:i){
+                if(j == 0) return false;
+            }
+        }
+        return true;
+    }
+
     private void setRow(int i, int[] row){
         board[i] = row;
     }
@@ -111,7 +118,7 @@ public class GameBoard {
         }
     }
     private int[] getRow(int i){
-            return board[i];
+        return board[i];
     }
     private int[] getCol(int i){
         int[] out = new int[SIZE];
@@ -120,13 +127,10 @@ public class GameBoard {
         }
         return out;
     }
-    private int[][] makeBoard(){
-        int[][] board = new int[SIZE][SIZE];
-        for(int[] i:board){
-            Arrays.fill(i, 0);
-        }
-        //90% - начинаем с двойки, 10% - с четверки
-        board[random.nextInt(SIZE)][random.nextInt(SIZE)] = random.nextInt(10) < 9 ? 2 : 4;
+    public int[][] getBoard () {
         return board;
+    }
+    public int getPoints () {
+        return points;
     }
 }

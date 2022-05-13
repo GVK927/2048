@@ -15,15 +15,19 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setFullScreen();
-        ((Button)findViewById(R.id.new_game_button)).setOnClickListener(l -> {
+        findViewById(R.id.new_game_button).setOnClickListener(l -> {
             Intent intent = new Intent(this, GameActivity.class);
             intent.putExtra("isContinue", false);
             startActivity(intent);
         });
-
-
+        findViewById(R.id.continue_button).setOnClickListener(l -> {
+            Intent intent = new Intent(this, GameActivity.class);
+            intent.putExtra("isContinue", true);
+            startActivity(intent);
+        });
     }
-    public void setFullScreen(){
+
+    private void setFullScreen(){
         getWindow().getDecorView().setSystemUiVisibility(
                   View.SYSTEM_UI_FLAG_LAYOUT_STABLE
                 | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
