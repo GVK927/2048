@@ -5,4 +5,5 @@
     <string name="_continue">Continue</string>
     <string name="leaderboard">LeaderBoard</string>
     <string name="top_players">Top players</string>
+    <string name="score">Score:</string>
 </resources>

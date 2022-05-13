@@ -8,7 +8,7 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/continue_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="56dp"
@@ -19,7 +19,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/leaders_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="104dp"
@@ -42,7 +42,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/new_game_button"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
