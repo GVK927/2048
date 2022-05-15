@@ -1,6 +1,7 @@
 package com.example.a2048;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.drawable.VectorDrawable;
@@ -9,6 +10,7 @@ import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 
 import java.util.HashMap;
@@ -25,6 +27,7 @@ class GameView extends View {
     private GameBoard board;
     private final VectorDrawable boardImg;
     private final HashMap<Integer, VectorDrawable> cellImages = new HashMap<>();
+    private GameView self;
 
     {
         cellImages.put(2, (VectorDrawable) getResources().getDrawable(R.drawable.ic_cell2));
@@ -50,6 +53,7 @@ class GameView extends View {
 
     public GameView(Context context, AttributeSet set) {
         super(context, set);
+        self = this;
         CELL_SIZE = cellImages.get(2).getIntrinsicWidth();
         BOARD_SIZE = boardImg.getIntrinsicWidth();
         OFFSET = (int)(((double)(BOARD_SIZE - CELL_SIZE * 4)) / 5);
@@ -110,18 +114,18 @@ class GameView extends View {
                 if (Math.abs(diffX) > Math.abs(diffY)) {
                     if (Math.abs(diffX) > SWIPE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
                         if (diffX > 0) {
-                            onSwipeRight();
+                            onSwipe(Direction.RIGHT);
                         } else {
-                            onSwipeLeft();
+                            onSwipe(Direction.LEFT);
                         }
                     }
                     result = true;
                 }
                 else if (Math.abs(diffY) > SWIPE_THRESHOLD && Math.abs(velocityY) > SWIPE_VELOCITY_THRESHOLD) {
                     if (diffY > 0) {
-                        onSwipeBottom();
+                        onSwipe(Direction.DOWN);
                     } else {
-                        onSwipeTop();
+                        onSwipe(Direction.UP);
                     }
                 }
                 result = true;
@@ -132,20 +136,11 @@ class GameView extends View {
             return result;
         }
 
-        public void onSwipeRight() {
-            board.move(Direction.RIGHT);
-            ((GameActivity)getContext()).update();
-        }
-        public void onSwipeLeft() {
-            board.move(Direction.LEFT);
-            ((GameActivity)getContext()).update();
-        }
-        public void onSwipeTop() {
-            board.move(Direction.UP);
-            ((GameActivity)getContext()).update();
-        }
-        public void onSwipeBottom() {
-            board.move(Direction.DOWN);
+        private void onSwipe(Direction direction) {
+            if (board.move(direction)) {
+                GameOverDialog gameOverDialog = new GameOverDialog((GameActivity) self.getContext());
+                gameOverDialog.show(((AppCompatActivity)getContext()).getSupportFragmentManager(), "");
+            }
             ((GameActivity)getContext()).update();
         }
     }

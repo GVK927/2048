@@ -44,6 +44,11 @@ public class GameActivity extends AppCompatActivity{
         scoreView.setText(getString(R.string.score, gameBoard.getPoints()));
         gameView.invalidate();
     }
+    public void newGame(){
+        this.gameBoard = new GameBoard();
+        this.gameView.setBoard(gameBoard);
+        update();
+    }
 
     private void saveGame(){
         try{

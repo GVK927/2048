@@ -6,4 +6,6 @@
     <string name="leaderboard">LeaderBoard</string>
     <string name="top_players">Top players</string>
     <string name="score">Score: %1$d</string>
+    <string name="game_over">Game over!</string>
+    <string name="ok">OK</string>
 </resources>
