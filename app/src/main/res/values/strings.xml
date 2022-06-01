@@ -8,4 +8,7 @@
     <string name="score">Score: %1$d</string>
     <string name="game_over">Game over!</string>
     <string name="ok">OK</string>
+    <string name="Offline">Offline</string>
+    <string name="Logout">Logout</string>
+    <string name="Log_in_sign_up">Log in/sign up</string>
 </resources>

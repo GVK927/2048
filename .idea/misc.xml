@@ -8,11 +8,12 @@
         <entry key="..\:/Java projects/2048/app/src/main/res/drawable/ic_gameboard.xml" value="0.2865" />
         <entry key="..\:/Java projects/2048/app/src/main/res/font/alfa_slab_one.xml" value="0.3026041666666667" />
         <entry key="..\:/Java projects/2048/app/src/main/res/layout/activity_game.xml" value="0.33" />
-        <entry key="..\:/Java projects/2048/app/src/main/res/layout/activity_leaders.xml" value="0.19067028985507245" />
+        <entry key="..\:/Java projects/2048/app/src/main/res/layout/activity_leaders.xml" value="0.33" />
         <entry key="..\:/Java projects/2048/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Java projects/2048/app/src/main/res/layout/activity_main2.xml" value="0.19067028985507245" />
         <entry key="..\:/Java projects/2048/app/src/main/res/layout/game_over_dialog.xml" value="0.67" />
         <entry key="..\:/Java projects/2048/app/src/main/res/layout/game_overd_dialog.xml" value="0.3489583333333333" />
+        <entry key="..\:/Java projects/2048/app/src/main/res/layout/recyclerview_item.xml" value="0.33" />
         <entry key="..\:/Java projects/2048/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.277" />
         <entry key="..\:/Java projects/2048/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.277" />
       </map>

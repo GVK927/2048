@@ -50,6 +50,10 @@ public class GameActivity extends AppCompatActivity{
         update();
     }
 
+    public GameBoard getGameBoard() {
+        return gameBoard;
+    }
+
     private void saveGame(){
         try{
             ObjectOutputStream outputStream = new ObjectOutputStream(new FileOutputStream(new File(getFilesDir(), "save.dat")));
